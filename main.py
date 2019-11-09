@@ -4,6 +4,16 @@ from structures.Euro_map import Euro_map
 
 finishString = "0"
 
+MIN_COORDINATE = 0
+MAX_COORDINATE = 10
+
+MIN_COUNTRY_NAME = 1
+MAX_COUNTRY_NAME = 25
+
+MIN_COUNTRIES_NUMBER = 1
+MAX_COUNTRIES_NUMBER = 20
+
+
 def getInput():
 
     input = open("tests/input.txt", "r")
@@ -28,7 +38,7 @@ def getInput():
 
 def isCase(curString):
 
-    return int(curString) < 20 and int(curString) > 0
+    return int(curString) <= MAX_COUNTRIES_NUMBER and int(curString) >= MIN_COUNTRIES_NUMBER
 
 
 def processCase(caseString, caseNumber):
@@ -66,7 +76,7 @@ def getCountry(countryString):
 
 def isCountryName(name):
 
-    return len(name) <= 25
+    return len(name) <= MAX_COUNTRY_NAME
 
 
 def isCountryCoordinates(coordinates):
@@ -75,14 +85,10 @@ def isCountryCoordinates(coordinates):
 
         i = int (i)
 
-        if i > 10 or i < 1:
+        if i > MAX_COORDINATE or i < MIN_COORDINATE:
 
             return False
 
     return coordinates[0] <= coordinates[2] and coordinates[1] <= coordinates[3]
 
 
-
-
-
-getInput()

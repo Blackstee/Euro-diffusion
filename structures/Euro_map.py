@@ -1,3 +1,7 @@
+MIN_COORDINATE = 0
+MAX_COORDINATE = 10
+
+
 
 
 class Euro_map:
@@ -58,42 +62,40 @@ class Euro_map:
         #check downside
         for i in range(int(country.coordinates[0]), int(country.coordinates[2]) + 1):
 
-            if (country.coordinates[1] != 0):
+            if (country.coordinates[1] != MIN_COORDINATE):
 
-                if self.findCountryByCoordinates([i, country.coordinates[1] - 1]) and country.checkNeighborCountryExists(self.findCountryByCoordinates([i, country.coordinates[1] - 1])) == False:
-
-                    country.neighborCountries.append(self.findCountryByCoordinates([i, country.coordinates[1] - 1]))
+                self.checkandaddCountryNeighbor(country, [i, country.coordinates[1] - 1])
 
         #check upside
         for i in range(country.coordinates[0], country.coordinates[2] + 1):
 
-            if (country.coordinates[3] != 10):
+            if (country.coordinates[3] != MAX_COORDINATE):
 
-                if self.findCountryByCoordinates([i, country.coordinates[3] + 1]) and country.checkNeighborCountryExists(
-                        self.findCountryByCoordinates([i, country.coordinates[3] + 1])) == False:
-
-                    country.neighborCountries.append(self.findCountryByCoordinates([i, country.coordinates[3] + 1]))
+                self.checkandaddCountryNeighbor(country, [i, country.coordinates[3] + 1])
 
         #check leftside
         for i in range(country.coordinates[1], country.coordinates[3] + 1):
 
-            if (country.coordinates[0] != 0):
+            if (country.coordinates[0] != MIN_COORDINATE):
 
-                if self.findCountryByCoordinates([country.coordinates[0] - 1, i]) and country.checkNeighborCountryExists(
-                        self.findCountryByCoordinates([country.coordinates[0] - 1, i])) == False:
-
-                    country.neighborCountries.append(self.findCountryByCoordinates([country.coordinates[0] - 1, i]))
+                self.checkandaddCountryNeighbor(country, [country.coordinates[0] - 1, i])
 
         #check rightside
         for i in range(country.coordinates[1], country.coordinates[3] + 1):
 
-            if (country.coordinates[2] != 10):
+            if (country.coordinates[2] != MAX_COORDINATE):
 
-                if self.findCountryByCoordinates([country.coordinates[2] + 1, i]) and country.checkNeighborCountryExists(
-                        self.findCountryByCoordinates([country.coordinates[2] + 1, i])) == False:
+                self.checkandaddCountryNeighbor(country, [country.coordinates[2] + 1, i])
 
-                    country.neighborCountries.append(self.findCountryByCoordinates([country.coordinates[2] + 1, i]))
+        return
 
+
+    def checkandaddCountryNeighbor(self, country, coordinates):
+
+        if self.findCountryByCoordinates(coordinates) and not country.checkNeighborCountryExists(
+                self.findCountryByCoordinates(coordinates)):
+
+            country.neighborCountries.append(self.findCountryByCoordinates(coordinates))
         return
 
 

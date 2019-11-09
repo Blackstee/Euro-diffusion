@@ -1,5 +1,8 @@
 
-startCoins  = 1000000
+STARTCOINS = 1000000
+PART = 1000
+
+
 
 
 class City:
@@ -7,7 +10,7 @@ class City:
     def __init__(self, coordinates, country):
 
         self.coordinates = list(map(int, coordinates))
-        self.coins = {country: startCoins}
+        self.coins = {country: STARTCOINS}
         self.country = country
         self.neighborCities = []
 
@@ -17,7 +20,7 @@ class City:
         coinsPortion = {}
 
         for country in self.coins.keys():
-            coinsPortion[country] = self.coins[country]//1000
+            coinsPortion[country] = self.coins[country]//PART
 
         for neighbor in self.neighborCities:
 

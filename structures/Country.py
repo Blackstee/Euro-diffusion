@@ -1,5 +1,8 @@
 from structures.City import City
 
+MIN_COORDINATE = 0
+MAX_COORDINATE = 10
+
 
 class Country:
 
@@ -35,35 +38,33 @@ class Country:
 
 
         #check downside
-        if (city.coordinates[1] != 0):
+        if (city.coordinates[1] != MIN_COORDINATE):
 
-            if self.findCityByCoordinates([city.coordinates[0], city.coordinates[1] - 1]) and city.checkNeighborCityExists(self.findCityByCoordinates([city.coordinates[0], city.coordinates[1] - 1])) == False:
-
-                city.neighborCities.append(self.findCityByCoordinates([city.coordinates[0], city.coordinates[1] - 1]))
+            self.checkandaddCityNeighbour (city, [city.coordinates[0], city.coordinates[1] - 1])
 
         # check upside
-        if (city.coordinates[1] != 10):
+        if (city.coordinates[1] != MAX_COORDINATE):
 
-            if self.findCityByCoordinates([city.coordinates[0], city.coordinates[1] + 1]) and city.checkNeighborCityExists(self.findCityByCoordinates([city.coordinates[0], city.coordinates[1] + 1])) == False:
-
-                city.neighborCities.append(self.findCityByCoordinates([city.coordinates[0], city.coordinates[1] + 1]))
-
+            self.checkandaddCityNeighbour(city, [city.coordinates[0], city.coordinates[1] + 1])
 
         #check leftside
-        if (city.coordinates[0] != 0):
+        if (city.coordinates[0] != MIN_COORDINATE):
 
-            if self.findCityByCoordinates([city.coordinates[0] - 1, city.coordinates[1]]) and city.checkNeighborCityExists(self.findCityByCoordinates([city.coordinates[0] - 1, city.coordinates[1]])) == False:
-
-                city.neighborCities.append(self.findCityByCoordinates([city.coordinates[0] - 1, city.coordinates[1]]))
-
+            self.checkandaddCityNeighbour(city, [city.coordinates[0] - 1, city.coordinates[1]])
 
         #check rightside
-        if (city.coordinates[0] != 10):
+        if (city.coordinates[0] != MAX_COORDINATE):
 
-            if self.findCityByCoordinates([city.coordinates[0] + 1, city.coordinates[1]]) and city.checkNeighborCityExists(self.findCityByCoordinates([city.coordinates[0] + 1, city.coordinates[1]])) == False:
+            self.checkandaddCityNeighbour(city, [city.coordinates[0] + 1, city.coordinates[1]])
 
-                city.neighborCities.append(self.findCityByCoordinates([city.coordinates[0] + 1, city.coordinates[1]]))
+        return
 
+    def checkandaddCityNeighbour(self, city, coordinates):
+
+        if self.findCityByCoordinates(coordinates) and not city.checkNeighborCityExists(
+                self.findCityByCoordinates(coordinates)):
+
+            city.neighborCities.append(self.findCityByCoordinates(coordinates))
 
         return
 
