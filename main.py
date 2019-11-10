@@ -2,7 +2,7 @@ from structures.City import City
 from structures.Country import Country
 from structures.Euro_map import Euro_map
 
-finishString = "0"
+FINISHSTRING = "0"
 
 MIN_COORDINATE = 0
 MAX_COORDINATE = 10
